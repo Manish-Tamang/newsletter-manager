@@ -1,0 +1,31 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  align?: "left" | "center";
+  as?: "h1" | "h2";
+  class?: string;
+}
+
+const { eyebrow, title, align = "left", as: Tag = "h2", class: className = "" } = Astro.props;
+const centered = align === "center";
+---
+
+<div class:list={[centered && "mx-auto text-center", "max-w-2xl", className]}>
+  {eyebrow && <p class="eyebrow mb-4">{eyebrow}</p>}
+  <Tag
+    class:list={[
+      "font-providence font-normal leading-[1.08] tracking-tight text-ink text-balance",
+      Tag === "h1" ? "text-5xl sm:text-6xl" : "text-4xl sm:text-5xl",
+    ]}
+  >
+    {title}
+  </Tag>
+  {
+    Astro.slots.has("default") && (
+      <p class:list={["mt-5 text-lg leading-tight text-black", centered && "mx-auto", "max-w-xl"]}>
+        <slot />
+      </p>
+    )
+  }
+</div>

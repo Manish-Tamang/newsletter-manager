@@ -1,0 +1,47 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+import TemplateThumb from "./ui/TemplateThumb.astro";
+import { appBaseUrl, presets } from "../data/site";
+
+const tilts = ["-rotate-[1.5deg]", "rotate-[1deg]", "-rotate-[0.5deg]", "rotate-[1.5deg]", "-rotate-[1deg]"];
+---
+
+<section id="templates" class="page-gutter scroll-mt-20">
+  <div class="mx-auto max-w-6xl px-6 pb-24 lg:pb-32">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <SectionHeading eyebrow="Templates" title="Start from a letter that already works.">
+        Five layouts ship with the editor. Pick one, swap the words, and keep
+        the spacing you did not have to think about.
+      </SectionHeading>
+      <a
+        href={`${appBaseUrl}/templates`}
+        class="shrink-0 text-[15px] text-ink/70 underline decoration-ink/30 underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
+      >
+        Browse templates
+      </a>
+    </div>
+
+    <ul class="mt-14 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+      {
+        presets.map((preset, index) => (
+          <li>
+            <a href={`${appBaseUrl}/templates`} class="group block focus-visible:outline-none">
+              <div
+                class:list={[
+                  "paper-panel aspect-[4/5] p-3 transition-transform duration-300 group-hover:rotate-0 group-hover:-translate-y-1 group-focus-visible:rotate-0",
+                  tilts[index % tilts.length],
+                ]}
+              >
+                <TemplateThumb id={preset.id} />
+              </div>
+              <h3 class="font-providence mt-4 text-2xl text-ink">
+                <span class="group-hover:highlight group-focus-visible:highlight">{preset.name}</span>
+              </h3>
+              <p class="mt-1 text-sm leading-snug text-ink/60">{preset.detail}</p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

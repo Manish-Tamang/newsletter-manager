@@ -1,20 +1,45 @@
 ---
-const appUrl = import.meta.env.PUBLIC_APP_URL || "http://localhost:3000/dashboard";
+import { appUrl } from "../data/site";
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+
+const links = [
+  { label: "Product", href: "/product" },
+  { label: "Templates", href: "/#templates" },
+];
 ---
 
-<header class="sticky top-0 z-20 border-b border-zinc-200/80 bg-white/90 backdrop-blur-sm">
+<header class="page-gutter sticky top-0 z-20 bg-white/85 backdrop-blur-md">
   <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-    <a href="/" class="flex items-center gap-2">
-      <img src="/logo.png" alt="Gulle" width="32" height="32" class="h-8 w-8" />
-      <span class="text-[17px] font-semibold tracking-tight text-zinc-950">Gulle</span>
+    <a href="/" class="group flex items-center gap-2" aria-label="Gaida home">
+      <img
+        src="/logo.png"
+        alt=""
+        width="30"
+        height="30"
+        class="h-[30px] w-[30px] transition-transform duration-300 group-hover:-rotate-6"
+      />
+      <span class="font-providence text-[26px] leading-none tracking-tight text-ink">Gaida</span>
     </a>
-    <nav class="flex items-center gap-6 text-sm">
-      <a href="/product" class="text-zinc-600 transition-colors hover:text-zinc-950">
+
+    <nav class="flex items-center gap-4 text-[15px] sm:gap-7">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              "hidden transition-colors hover:text-ink sm:inline",
+              path === link.href ? "highlight text-ink" : "text-ink/60",
+            ]}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a href="/product" class:list={["transition-colors hover:text-ink sm:hidden", path === "/product" ? "text-ink" : "text-ink/60"]}>
         Product
       </a>
-      <a href={appUrl} class="rounded-full bg-zinc-950 px-4 py-2 text-white transition-colors hover:bg-zinc-800">
-        Open app
-      </a>
+      <a href={appUrl} class="sketch-pill">Open app</a>
     </nav>
   </div>
 </header>

@@ -1,17 +1,76 @@
 ---
-const appUrl = import.meta.env.PUBLIC_APP_URL || "http://localhost:3000/dashboard";
+import SketchButton from "./ui/SketchButton.astro";
+import { appUrl, appBaseUrl } from "../data/site";
+
+const columns = [
+  {
+    title: "Site",
+    links: [
+      { label: "Home", href: "/" },
+      { label: "Product", href: "/product" },
+      { label: "Templates", href: "/#templates" },
+    ],
+  },
+  {
+    title: "App",
+    links: [
+      { label: "Dashboard", href: `${appBaseUrl}/dashboard` },
+      { label: "Campaigns", href: `${appBaseUrl}/campaigns` },
+      { label: "Editor", href: `${appBaseUrl}/editor` },
+      { label: "Subscribers", href: `${appBaseUrl}/subscribers` },
+    ],
+  },
+];
+
+const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-zinc-200 bg-white">
-  <div class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
-    <p class="text-sm text-zinc-500">Gulle · emails that stay aligned</p>
-    <div class="flex gap-5 text-sm text-zinc-600">
-      <a href="/product" class="transition-colors hover:text-zinc-950">
-        Product
-      </a>
-      <a href={appUrl} class="transition-colors hover:text-zinc-950">
-        App
-      </a>
+<footer class="page-gutter pb-4 sm:pb-6">
+  <div class="paper-panel">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="flex flex-col items-center py-20 text-center sm:py-28">
+        <img src="/logo.png" alt="" width="72" height="72" class="h-[72px] w-[72px]" loading="lazy" />
+        <h2 class="font-providence mt-6 max-w-2xl text-balance text-5xl leading-[1.08] tracking-tight text-ink sm:text-6xl">
+          Your next letter starts on a blank page.
+        </h2>
+        <p class="mt-5 max-w-md text-lg leading-tight text-black">
+          Open a canvas, keep one margin, and send something that looks finished
+          the first time.
+        </p>
+        <div class="mt-9">
+          <SketchButton href={appUrl} class="ml-10">Open the app</SketchButton>
+        </div>
+      </div>
+
+      <div class="grid gap-10 border-t border-dashed border-ink/25 py-12 sm:grid-cols-[1.4fr_1fr_1fr]">
+        <div>
+          <a href="/" class="font-providence text-3xl leading-none text-ink">Gaida</a>
+          <p class="mt-3 max-w-xs text-[15px] leading-snug text-ink/60">
+            A newsletter workspace for campaigns, subscribers, and emails that stay aligned.
+          </p>
+        </div>
+        {
+          columns.map((column) => (
+            <nav aria-label={column.title}>
+              <p class="eyebrow">{column.title}</p>
+              <ul class="mt-4 space-y-2.5">
+                {column.links.map((link) => (
+                  <li>
+                    <a href={link.href} class="text-[15px] text-ink/75 transition-colors hover:text-ink hover:highlight">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))
+        }
+      </div>
+
+      <div class="flex flex-col gap-2 border-t border-dashed border-ink/25 py-6 text-sm text-ink/50 sm:flex-row sm:justify-between">
+        <p>© {year} Gaida</p>
+        <p class="font-providence text-lg leading-none text-ink/60">emails that stay aligned</p>
+      </div>
     </div>
   </div>
 </footer>
