@@ -1,7 +1,146 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Providence Sans";
+  src: url("/fonts/providence-sans-opentype_ufonts.com.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-providence: "Providence Sans", Arial, sans-serif;
+  --font-mono: "Courier New", ui-monospace, monospace;
+  --color-ink: #111111;
+  --color-paper: #fdfaed;
+  --color-paper-deep: #f5efd6;
+  --color-marker: #ffe100;
+}
+
 @layer base {
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    font-weight: 400;
+  }
+
+  p {
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: rgb(255 225 0 / 0.55);
+  }
+}
+
+/* Outer gutter shared by the header, hero panel, sections, and footer panel. */
+@utility page-gutter {
+  padding-inline: 1rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+}
+
+/* The cream sheet the hero sits on. */
+@utility paper-panel {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1380px;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: var(--color-paper);
+}
+
+/* Highlighter stroke, same yellow as the sketch button. */
+@utility highlight {
+  background-image: linear-gradient(
+    100deg,
+    transparent 0.5%,
+    rgb(255 225 0 / 0.55) 2%,
+    rgb(255 225 0 / 0.45) 96%,
+    transparent 98%
+  );
+  background-size: 100% 0.5em;
+  background-repeat: no-repeat;
+  background-position: 0 85%;
+  padding-inline: 0.08em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Small outlined pill with the hand-drawn wobble. */
+@utility sketch-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 999px;
+  background-color: white;
+  padding: 0.45rem 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--color-ink);
+  box-shadow: 3px 3px 0 0 rgb(51 51 51 / 0.4);
+  filter: url(#sketchNoise);
+  transition:
+    translate 0.2s ease,
+    box-shadow 0.2s ease,
+    rotate 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    translate: -1px -1px;
+    rotate: -1.5deg;
+    box-shadow: 4px 4px 0 0 rgb(51 51 51 / 0.5);
+  }
+
+  &:active {
+    translate: 2px 2px;
+    box-shadow: inset 2px 2px 0 0 rgb(51 51 51 / 0.6);
+  }
+
+  &:focus-visible {
+    outline: 2px dashed rgb(51 51 51 / 0.6);
+    outline-offset: 4px;
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: rgb(17 17 17 / 0.55);
+}
+
+@utility type-statement {
+  font-family: var(--font-sans);
+  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 1.875rem);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+  color: var(--color-ink);
+  text-align: center;
+  text-wrap: balance;
 }

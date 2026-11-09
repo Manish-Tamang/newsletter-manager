@@ -1,10 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import BlockCanvas from '../components/BlockCanvas.astro';
 import ProductOverview from '../components/ProductOverview.astro';
+import TemplateGallery from '../components/TemplateGallery.astro';
 ---
 
-<Layout title="Home" description="Gulle is a newsletter workspace for campaigns, subscribers, and emails that stay aligned.">
+<Layout>
   <Hero />
+  <BlockCanvas />
   <ProductOverview />
+  <TemplateGallery />
 </Layout>

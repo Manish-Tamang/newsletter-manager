@@ -1,0 +1,100 @@
+---
+import SectionHeading from "./ui/SectionHeading.astro";
+import { blocks } from "../data/site";
+---
+
+<section class="page-gutter">
+  <div
+    class="mx-auto grid max-w-6xl items-center gap-14 px-6 py-24 lg:grid-cols-[1fr_1.05fr] lg:gap-16 lg:py-32"
+  >
+    <div>
+      <SectionHeading eyebrow="The canvas" title={`${blocks.length} blocks, one margin.`}>
+        Stack a logo, a heading, a paragraph, and a button. Each block already
+        knows the gutter, the accent color, and how much air it needs from the
+        one above it.
+      </SectionHeading>
+
+      <ul class="mt-9 flex max-w-lg flex-wrap gap-2" aria-label="Available blocks">
+        {
+          blocks.map((block) => (
+            <li class="rounded-full border border-ink/15 bg-white px-3 py-1 text-sm text-ink/80 transition-colors hover:border-ink hover:bg-paper hover:text-ink">
+              {block}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="relative">
+      <div class="paper-panel relative px-5 pb-8 pt-16 sm:px-10 sm:pb-12">
+        <p
+          class="font-providence absolute left-6 top-4 flex items-start gap-1 text-xl text-ink/80 sm:left-12"
+          aria-hidden="true"
+        >
+          <span class="-rotate-2">same gutter, every block</span>
+          <svg
+            class="mt-2 h-8 w-12 text-ink/70"
+            viewBox="0 0 60 40"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M3 6c16 0 30 6 38 26" />
+            <path d="M33 27l8 6 3-10" />
+          </svg>
+        </p>
+
+        <article
+          class="email-card relative mx-auto max-w-md rounded-[4px] border border-ink/10 bg-white shadow-[6px_6px_0_0_rgb(51_51_51/0.12)]"
+          aria-label="Example email built on the Gaida canvas"
+        >
+          <span class="guide left-7" aria-hidden="true"></span>
+          <span class="guide right-7" aria-hidden="true"></span>
+
+          <div class="relative space-y-5 px-7 py-8 font-sans">
+            <div class="flex items-center gap-2">
+              <span class="grid h-6 w-6 place-items-center rounded-[4px] bg-ink text-[11px] font-bold text-white">C</span>
+              <span class="text-sm font-bold tracking-tight">Cloudline</span>
+            </div>
+
+            <div class="h-1 w-14 rounded-full bg-marker"></div>
+
+            <div>
+              <h3 class="text-[26px] font-bold leading-[1.1] tracking-tight">
+                Ship config without the extra round trips
+              </h3>
+              <p class="mt-2 text-[15px] leading-snug text-ink/70">
+                Three habits that keep apps fast and inside the plan. Read them
+                once, then forget about the latency graph for a while.
+              </p>
+            </div>
+
+            <span class="inline-block rounded-[4px] bg-ink px-4 py-2 text-sm font-bold text-white">
+              Learn more
+            </span>
+
+            <hr class="border-ink/10" />
+
+            <p class="text-xs leading-snug text-ink/45">
+              cloudline.example · Community · Privacy
+              <br />
+              You get this because you signed up for product notes.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .guide {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-left: 1px dashed rgb(56 132 255 / 0.45);
+    pointer-events: none;
+  }
+</style>
